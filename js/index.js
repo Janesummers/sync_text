@@ -10,7 +10,7 @@ const user = {
   created () {
     let pathname = window.location.pathname.match(/(?<=\/text\/)[^\/]+/)[0];
     this.pathname = pathname;
-    axios.get(`http://192.168.1.101:8080/${pathname}`)
+    axios.get(`https://www.chiens.cn/getText/${pathname}`)
     .then((res) => {
       console.log(res)
       this.text = res.data.data;
@@ -29,7 +29,7 @@ const user = {
           let param = new URLSearchParams();
           param.append('data', now)
           axios({
-            url: `http://192.168.1.101:8080/write?id=${this.pathname}`,
+            url: `https://www.chiens.cn/getText/write?id=${this.pathname}`,
             method: 'post',
             headers: {
               'Content-Type': 'application/x-www-form-urlencoded'
@@ -70,7 +70,7 @@ let vm = new Vue({
   router,
   created () {
     if (window.location.pathname == '/text/') {
-      axios.get('http://192.168.1.101:8080')
+      axios.get('https://www.chiens.cn/getText')
       .then((res) => {
         console.log(res)
         let href = window.location.href;

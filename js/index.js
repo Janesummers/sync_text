@@ -1,3 +1,4 @@
+// new VConsole();
 const user = {
   template: `<textarea id="text" v-model="text"></textarea>`,
   data () {
@@ -8,7 +9,7 @@ const user = {
     }
   },
   created () {
-    let pathname = window.location.pathname.match(/(?<=\/text\/)[^\/]+/)[0];
+    let pathname = window.location.pathname.match(/[^\/text\/]+/)[0];
     this.pathname = pathname;
     axios.get(`https://www.chiens.cn/getText/${pathname}`)
     .then((res) => {

@@ -5,20 +5,34 @@ const user = {
     return {
       text: '',
       timer: null,
-      pathname: ''
+      pathname: '',
+      timer: null,
+      timer2: null,
+      timer3: null
     }
   },
   created () {
     let pathname = window.location.pathname.match(/[^\/text\/]+/)[0];
     this.pathname = pathname;
-    axios.get(`https://www.chiens.cn/getText/${pathname}`)
-    .then((res) => {
-      console.log(res)
-      this.text = res.data.data;
-    })
-    .catch((err) => {
-      console.log(err)
-    })
+    this.timer = setInterval(() => {
+      axios.get(`https://www.chiens.cn/getText/${pathname}`)
+      .then((res) => {
+        console.log(res)
+        this.text = res.data.data;
+      })
+      .catch((err) => {
+        console.log(err)
+      })
+    }, 2000);
+    this.timer2 = setTimeout(() => {
+      this.timer3 = setInterval(() => {
+        clearInterval(this.timer)
+      }, 500);
+      setTimeout(() => {
+        clearInterval(this.timer3)
+      }, 5000)
+      clearTimeout(this.timer2)
+    }, 300000)
   },
   watch: {
     'text': {

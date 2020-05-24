@@ -7,9 +7,6 @@ const user = {
       timer: null,
       pathname: '',
       timer: null,
-      timer2: null,
-      timer3: null,
-      timer4: null,
       first: true
     }
   },
@@ -24,28 +21,6 @@ const user = {
     .catch((err) => {
       console.log(err)
     })
-  },
-  mounted() {
-    this.timer2 = setInterval(() => {
-      console.log('sss')
-      axios.get(`https://www.chiens.cn/getText/${this.pathname}`)
-      .then((res) => {
-        console.log(res)
-        this.text = res.data.data;
-      })
-      .catch((err) => {
-        console.log(err)
-      })
-    }, 2000);
-    this.timer3 = setTimeout(() => {
-      this.timer4 = setInterval(() => {
-        clearInterval(this.timer)
-      }, 500);
-      setTimeout(() => {
-        clearInterval(this.timer4)
-      }, 5000)
-      clearTimeout(this.timer3)
-    }, 300000)
   },
   watch: {
     'text': {

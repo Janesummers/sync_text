@@ -77,7 +77,7 @@ let vm = new Vue({
   router,
   created () {
     if (window.location.pathname == '/text/') {
-      axios.get('https://www.chiens.cn/getText')
+      axios.get('https://chiens.cn/getText')
       .then((res) => {
         console.log(res)
         let href = window.location.href;

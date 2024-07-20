@@ -1,4 +1,6 @@
 // new VConsole();
+const isLocal = location.host.indexOf('localhost') !== -1
+const BASE_URL = isLocal ? 'http://localhost:8080' : 'https://www.chiens.cn'
 const user = {
   template: `
     <textarea id="text" v-model="text"></textarea>
@@ -16,7 +18,7 @@ const user = {
     console.log('0d0s0d');
     let pathname = window.location.pathname.match(/[^\/text\/]+/)[0];
     this.pathname = pathname;
-    axios.get(`https://www.chiens.cn/getText/${pathname}`)
+    axios.get(`${BASE_URL}/getText/${pathname}`)
     .then((res) => {
       console.log(res)
       this.text = res.data.data;
@@ -45,7 +47,7 @@ const user = {
             let param = new URLSearchParams();
             param.append('data', now)
             axios({
-              url: `https://www.chiens.cn/getText/write?id=${this.pathname}`,
+              url: `${BASE_URL}/getText/write?id=${this.pathname}`,
               method: 'post',
               headers: {
                 'Content-Type': 'application/x-www-form-urlencoded'
@@ -88,27 +90,8 @@ let vm = new Vue({
   el: '#app',
   router,
   created () {
-    // axios.post('https://www.chiens.cn/getText')
-    // .then((res) => {
-      
-    //   // window.location = `${href}${res.data.data}`
-    // })
-
-    axios({
-      url: "https://www.chiens.cn/getText/0a7A4",
-      method: "POST",
-      data: {},
-      headers: {
-        "Content-Type": "application/x-www-form-urlencoded",
-      },
-    }).then(res => {
-      console.log(res)
-      let href = window.location.href;
-      console.log('hhh', `${href}${res.data.data}`);
-    })
-    
     if (window.location.pathname === '/text/') {
-      axios.get('https://www.chiens.cn/getText')
+      axios.get(`${BASE_URL}/getText`)
       .then((res) => {
         console.log(res)
         let href = window.location.href;

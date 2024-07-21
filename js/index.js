@@ -3,7 +3,9 @@ const isLocal = location.host.indexOf('localhost') !== -1
 const BASE_URL = isLocal ? 'http://localhost:8080' : 'https://www.chiens.cn'
 const user = {
   template: `
-    <textarea id="text" v-model="text"></textarea>
+    <div :class="[isDark ? 'dark' : '', 'sync-text-container']">
+      <textarea id="text" v-model="text"></textarea>
+    </div>
   `,
   data () {
     return {
@@ -11,11 +13,13 @@ const user = {
       timer: null,
       pathname: '',
       timer: null,
-      first: true
+      first: true,
+      isDark: false
     }
   },
   created () {
-    console.log('0d0s0d');
+    console.log('0d0s0d', this.$route);
+    this.isDark = this.$route.query.theme === 'dark'
     let pathname = window.location.pathname.match(/[^\/text\/]+/)[0];
     this.pathname = pathname;
     axios.get(`${BASE_URL}/getText/${pathname}`)

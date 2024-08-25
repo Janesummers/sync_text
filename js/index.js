@@ -1,6 +1,6 @@
 // new VConsole();
 const isLocal = location.host.indexOf('localhost') !== -1
-const BASE_URL = isLocal ? 'http://localhost:8080' : 'https://www.chiens.cn'
+const BASE_URL = isLocal ? 'http://localhost:8080' : 'https://chiens.cn'
 const user = {
   template: `
     <div :class="[isDark ? 'dark' : '', 'sync-text-container']">

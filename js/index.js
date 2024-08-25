@@ -95,7 +95,7 @@ let vm = new Vue({
   router,
   created () {
     if (window.location.pathname === '/text/') {
-      axios.get(`${BASE_URL}/getText`)
+      axios.get(`${BASE_URL}/getText/create`)
       .then((res) => {
         console.log(res)
         let href = window.location.href;

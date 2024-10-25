@@ -1,10 +1,15 @@
 // new VConsole();
 const isLocal = location.host.indexOf('localhost') !== -1
-const BASE_URL = isLocal ? 'http://localhost:8080' : ''
+const BASE_URL = isLocal ? 'http://localhost' : ''
 const user = {
   template: `
     <div :class="[isDark ? 'dark' : '', 'sync-text-container']">
       <textarea id="text" v-model="text"></textarea>
+      <div 
+        :data-clipboard-text="text"
+        data-clipboard-action="copy"
+        class="copy-btn"
+      ></div>
     </div>
   `,
   data () {
@@ -22,6 +27,20 @@ const user = {
     this.isDark = this.$route.query.theme === 'dark'
     let pathname = window.location.pathname.match(/[^\/text\/]+/)[0];
     this.pathname = pathname;
+
+    var clipboard = new ClipboardJS(".copy-btn");
+    clipboard.on("success", function (e) {
+      console.log("已复制成功" + e.text);
+      Qmsg.success("复制成功", { autoClose: true, onClose: () => {} });
+    });
+    clipboard.on("error", function (e) {
+      console.log("您的浏览器可能不支持，请手动复制~");
+      Qmsg.error("复制失败，您的浏览器可能不支持，请手动复制~", {
+        autoClose: true,
+        onClose: () => {},
+      });
+    });
+
     axios.get(`${BASE_URL}/getText/${pathname}`)
     .then((res) => {
       console.log(res)
@@ -32,13 +51,6 @@ const user = {
     })
   },
   methods: {
-    toClipboard() {
-      // return navigator.clipboard.readText().then(res => {
-      //   console.log('剪贴板内容', res);
-      //   Qmsg.success("粘贴成功", { autoClose: true, onClose: () => {} });
-      //   return res
-      // })
-    }
   },
   watch: {
     'text': {

@@ -19,6 +19,7 @@ body {
   width: calc(100% - 40px);
   height: calc(100% - 40px);
   background: #d5d7d8;
+  position: relative;
 }
 #app .sync-text-container #text {
   width: 100%;
@@ -30,6 +31,18 @@ body {
   padding: 20px;
   box-sizing: border-box;
   resize: none;
+}
+#app .sync-text-container .copy-btn {
+  width: 40px;
+  height: 40px;
+  background-image: url("../images/copy.png");
+  background-size: 26px 26px;
+  background-repeat: no-repeat;
+  background-position: 0 0;
+  position: absolute;
+  left: 20px;
+  top: 20px;
+  cursor: pointer;
 }
 #app .dark.sync-text-container {
   background-color: rgb(58, 61, 62);
